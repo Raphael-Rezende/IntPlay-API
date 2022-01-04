@@ -7,14 +7,14 @@ module.exports = {
   storage: multer.diskStorage({
 
     destination: (req, file, cb) => {
-      if(file.fieldname === 'capa'){
+      if (file.fieldname === 'capa') {
 
         cb(null, path.resolve(__dirname, "..", "..", "tmp", "uploads", "capa"));
 
-      }else if(file.fieldname === 'backdrop'){
+      } else if (file.fieldname === 'backdrop') {
         cb(null, path.resolve(__dirname, "..", "..", "tmp", "uploads", "backdrop"));
 
-      }else if(file.fieldname === 'movie'){
+      } else if (file.fieldname === 'movie') {
         cb(null, path.resolve(__dirname, "..", "..", "tmp", "uploads", "movie"));
       }
     },
@@ -33,13 +33,16 @@ module.exports = {
       "image/jpeg",
       "image/pjpeg",
       "image/png",
-      "image/gif"
+      "image/gif",
+      "video/mp4",
+      "video/mkv"
 
     ];
 
     if (allowedMimes.includes(file.mimetype)) {
       cb(null, true);
     } else {
+      console.log(file)
       cb(new Error("Invalid file type."));
     }
   }

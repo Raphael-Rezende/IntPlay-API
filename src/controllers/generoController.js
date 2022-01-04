@@ -9,6 +9,7 @@ class GeneroController {
 
 
             const { genero } = req.body
+            console.log('INCLUDE', req.body)
 
             if (await Genero.findOne({ genero })) {
 
@@ -16,7 +17,7 @@ class GeneroController {
 
 
             }
-            const data = await Genero.create(req.body);
+            const data = await Genero.create({ genero });
 
             return res.json(data);
         }
@@ -43,15 +44,15 @@ class GeneroController {
 
         const { id } = req.params
         try {
-    
+
             const genero = await Genero.findOne({ _id: id }).populate({
                 path: 'movies',
                 model: 'Movie'
             })
-    
+
             return res.json(genero);
         }
-    
+
         catch (err) {
             throw createError(err.status, { errors })
         }

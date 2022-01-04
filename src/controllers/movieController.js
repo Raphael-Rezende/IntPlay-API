@@ -7,13 +7,12 @@ class MovieController {
 
     try {
 
-
       const capa = req.files.capa[0].path
       const backdrop = req.files.backdrop[0].path
       const url = req.files.movie[0].path
-      const movie = await Movie.create({ capa: capa, backdrop: backdrop, url: url});
-      
-      console.log(movie)
+      console.log('>>>>>>>>>>>>>', capa, backdrop, url)
+      const movie = await Movie.create({ capa: capa, backdrop: backdrop, url: url });
+
       return res.json(movie);
     }
     catch (err) {
