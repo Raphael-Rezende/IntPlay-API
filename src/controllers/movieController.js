@@ -13,14 +13,15 @@ class MovieController {
 
       if (req.files.capa) {
         const capa = req.files.capa[0].path
-        url = capa.substring(32, capa.length)
+        url =  '\\tmp\\' + capa.split('\\tmp\\').pop()
       } else if (req.files.backdrop) {
         const backdrop = req.files.backdrop[0].path
-        url = backdrop.substring(32, backdrop.length)
+        url = '\\tmp\\' + backdrop.split('\\tmp\\').pop()
       } else if (req.files.movie) {
         const movie = req.files.movie[0].path
-        url = movie.substring(32, movie.length)
+        url = '\\tmp\\' + movie.split('\\tmp\\').pop()
       }
+
 
 
       return res.json(url);
@@ -72,8 +73,6 @@ class MovieController {
       d.setDate(d.getDate() - 30);
       const movie = await Movie.find({ deleted: false, updatedAt: { $gt: (d) } })
         .populate({ path: 'generos', model: 'Genero' })
-
-
       return res.json(movie);
     }
     catch (err) {

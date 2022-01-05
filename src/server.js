@@ -41,6 +41,10 @@ class App {
       "/tmp",
       express.static(path.resolve(__dirname, "..", "tmp"))
     );
+    this.express.use(
+      "/public",
+      express.static(path.resolve(__dirname, "..", "public"))
+    );
 
 
     this.express.use(require("./routes"));
