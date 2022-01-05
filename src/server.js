@@ -38,9 +38,10 @@ class App {
     this.express.use(express.urlencoded({ extended: true }));
     this.express.use(morgan("dev"));
     this.express.use(
-      "/files",
-      express.static(path.resolve(__dirname, "..", "tmp", "uploads"))
+      "/tmp",
+      express.static(path.resolve(__dirname, "..", "tmp"))
     );
+
 
     this.express.use(require("./routes"));
 

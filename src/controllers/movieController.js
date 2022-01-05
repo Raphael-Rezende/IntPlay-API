@@ -62,6 +62,23 @@ class MovieController {
       console.log(err)
     }
   }
+
+  async newsMovie(req, res) {
+    try {
+      const d = new Date()
+      d.setDate(d.getDate() - 30);
+      const movie = await Movie.find({ deleted: false, updatedAt: { $gt: (d) } })
+        .populate({ path: 'generos', model: 'Genero' })
+
+
+      return res.json(movie);
+    }
+    catch (err) {
+
+      console.log(err)
+    }
+
+  }
 }
 
 module.exports = new MovieController();
