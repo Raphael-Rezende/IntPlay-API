@@ -9,17 +9,19 @@ class GeneroController {
 
 
             const { genero } = req.body
-            console.log('INCLUDE', req.body)
+            const generoDataBase = await Genero.findOne({ genero })
+            console.log(genero, generoDataBase)
+            if (generoDataBase != null) {
 
-            if (await Genero.findOne({ genero })) {
-
-                console.log('Genero Existente')
-
-
+                if (generoDataBase.genero != genero) {
+                    const data = await Genero.create({ genero });
+                    return res.json(data);
+                }
+            } else {
+                const data = await Genero.create({ genero });
+                return res.json(data);
             }
-            const data = await Genero.create({ genero });
 
-            return res.json(data);
         }
         catch (err) {
             console.log(err)
@@ -54,7 +56,7 @@ class GeneroController {
         }
 
         catch (err) {
-            throw createError(err.status, { errors })
+            console.log(err)
         }
     }
 

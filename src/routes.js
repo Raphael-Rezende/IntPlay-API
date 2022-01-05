@@ -14,15 +14,16 @@ routes.get("/", function (req, res) {
 });
 
 // Rotas CRUD Filmes
-routes.post("/movie/incluir", multer(multerConfig).fields([{
+routes.post("/movie/incluirFiles", multer(multerConfig).fields([{
   name: 'capa', maxCount: 1
 }, {
   name: 'backdrop', maxCount: 1
 },
 {
   name: 'movie', maxCount: 1
-}]), asyncHandler(MovieController.include));
-routes.get("/movie/incluir/:id", asyncHandler(MovieController.includeRegister));
+}]), asyncHandler(MovieController.includeFiles));
+
+routes.post("/movie/incluir/", asyncHandler(MovieController.include));
 routes.get("/movies", asyncHandler(MovieController.indexAll))
 
 routes.get("/generos/populate/:id", asyncHandler(GeneroController.findPopulate));

@@ -3,15 +3,33 @@ const Movie = require("../models/movie");
 
 class MovieController {
 
-  async include(req, res) {
+  async includeFiles(req, res) {
 
     try {
 
-      const capa = req.files.capa[0].path
-      const backdrop = req.files.backdrop[0].path
-      const url = req.files.movie[0].path
-      console.log('>>>>>>>>>>>>>', capa, backdrop, url)
-      const movie = await Movie.create({ capa: capa, backdrop: backdrop, url: url });
+      console.log(req.files)
+      var url = ''
+
+      if (req.files.capa) {
+        url = req.files.capa[0].path
+      } else if (req.files.backdrop) {
+        url = req.files.backdrop[0].path
+      } else if (req.files.movie) {
+        url = req.files.movie[0].path
+      }
+
+
+      return res.json(url);
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+  async include(req, res) {
+
+    try {
+      console.log(req.body)
+      const movie = await Movie.create({ ...req.body });
 
       return res.json(movie);
     }
@@ -19,6 +37,7 @@ class MovieController {
       console.log(err)
     }
   }
+
   async includeRegister(req, res) {
     try {
 
