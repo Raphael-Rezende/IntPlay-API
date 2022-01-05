@@ -28,6 +28,7 @@ routes.get("/recente/movie", asyncHandler(MovieController.newsMovie))
 
 routes.post("/movie/incluir/", asyncHandler(MovieController.include));
 routes.get("/movies", asyncHandler(MovieController.indexAll))
+routes.delete("/movie/deleteFile/:paste/:name", asyncHandler(MovieController.deleteFile));
 
 routes.get("/generos/populate/:id", asyncHandler(GeneroController.findPopulate));
 routes.get("/generos", asyncHandler(GeneroController.indexAll))

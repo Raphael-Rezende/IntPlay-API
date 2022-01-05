@@ -1,4 +1,6 @@
 const Movie = require("../models/movie");
+const path = require("path");
+var fs = require("fs")
 
 
 class MovieController {
@@ -7,15 +9,17 @@ class MovieController {
 
     try {
 
-      console.log(req.files)
       var url = ''
 
       if (req.files.capa) {
-        url = req.files.capa[0].path
+        const capa = req.files.capa[0].path
+        url = capa.substring(32, capa.length)
       } else if (req.files.backdrop) {
-        url = req.files.backdrop[0].path
+        const backdrop = req.files.backdrop[0].path
+        url = backdrop.substring(32, backdrop.length)
       } else if (req.files.movie) {
-        url = req.files.movie[0].path
+        const movie = req.files.movie[0].path
+        url = movie.substring(32, movie.length)
       }
 
 
@@ -28,7 +32,6 @@ class MovieController {
   async include(req, res) {
 
     try {
-      console.log(req.body)
       const movie = await Movie.create({ ...req.body });
 
       return res.json(movie);
@@ -72,6 +75,22 @@ class MovieController {
 
 
       return res.json(movie);
+    }
+    catch (err) {
+
+      console.log(err)
+    }
+  }
+  async deleteFile(req, res) {
+
+    try {
+
+      const { name, paste } = req.params;
+      fs.unlinkSync(path.resolve(__dirname, "..", "..", "tmp", "uploads", paste, name))
+
+      console.log(name)
+
+      return res.json("Removed File");
     }
     catch (err) {
 
