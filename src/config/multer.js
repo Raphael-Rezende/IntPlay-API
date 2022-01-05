@@ -35,7 +35,7 @@ module.exports = {
       "image/png",
       "image/gif",
       "video/mp4",
-      "video/mkv"
+      'video/x-matroska'
 
     ];
 
