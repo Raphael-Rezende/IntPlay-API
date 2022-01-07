@@ -13,7 +13,7 @@ class MovieController {
 
       if (req.files.capa) {
         const capa = req.files.capa[0].path
-        url =  '\\tmp\\' + capa.split('\\tmp\\').pop()
+        url = '\\tmp\\' + capa.split('\\tmp\\').pop()
       } else if (req.files.backdrop) {
         const backdrop = req.files.backdrop[0].path
         url = '\\tmp\\' + backdrop.split('\\tmp\\').pop()
@@ -65,6 +65,22 @@ class MovieController {
 
       console.log(err)
     }
+  }
+
+  async findId(req, res) {
+    try {
+      console.log('findId', req.params)
+      const { id } = req.params
+      const movie = await Movie.findOne({ _id: id });
+
+
+      return res.json(movie);
+    }
+    catch (err) {
+
+      console.log(err)
+    }
+
   }
 
   async newsMovie(req, res) {
