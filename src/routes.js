@@ -23,6 +23,7 @@ routes.post("/movie/incluirFiles", multer(multerConfig).fields([{
   name: 'movie', maxCount: 1
 }]), asyncHandler(MovieController.includeFiles));
 
+routes.get("/getall/:text", asyncHandler(MovieController.getAll))
 
 routes.get("/recente/movie", asyncHandler(MovieController.newsMovie))
 routes.get("/movie/:id", asyncHandler(MovieController.findId))

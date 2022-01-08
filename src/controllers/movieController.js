@@ -67,6 +67,20 @@ class MovieController {
     }
   }
 
+  async getAll(req, res){
+    try {
+      const { text } = req.params
+      const movies = await Movie.find({ titulo: { $regex: text, $options: 'i' } })
+      
+      return res.json(movies);
+    }
+    catch (err) {
+
+      console.log(err)
+    }
+
+  }
+
   async findId(req, res) {
     try {
       console.log('findId', req.params)
