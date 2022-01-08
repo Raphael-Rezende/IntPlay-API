@@ -5,6 +5,7 @@ const asyncHandler = require('express-async-handler')
 
 const MovieController = require("./controllers/movieController");
 const GeneroController = require("./controllers/generoController")
+const servidorController = require("./controllers/servidorController")
 
 routes.get("/", function (req, res) {
   //https.get(process.env.AWS_URL + 'site/index.html', function (response) {
@@ -37,6 +38,9 @@ routes.delete("/movie/deleteFile/:paste/:name", asyncHandler(MovieController.del
 routes.get("/generos/populate/:id", asyncHandler(GeneroController.findPopulate));
 routes.get("/generos", asyncHandler(GeneroController.indexAll))
 routes.post("/generos/incluir", asyncHandler(GeneroController.include))
+
+routes.get("/servers", asyncHandler(servidorController.indexAll))
+routes.post("/servers/incluir", asyncHandler(servidorController.include))
 /*
 routes.post("/posts", multer(multerConfig).single("file"), async (req, res) => {
   const { originalname: name, size, key, location: url = "" } = req.file;

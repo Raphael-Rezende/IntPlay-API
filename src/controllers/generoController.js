@@ -16,6 +16,8 @@ class GeneroController {
                 if (generoDataBase.genero != genero) {
                     const data = await Genero.create({ genero });
                     return res.json(data);
+                } else {
+                    return res.json("Existe");
                 }
             } else {
                 const data = await Genero.create({ genero });
