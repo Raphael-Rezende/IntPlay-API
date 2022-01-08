@@ -67,12 +67,35 @@ class MovieController {
     }
   }
 
-  async getAll(req, res){
+  async getAll(req, res) {
     try {
       const { text } = req.params
       const movies = await Movie.find({ titulo: { $regex: text, $options: 'i' } })
-      
+
       return res.json(movies);
+    }
+    catch (err) {
+
+      console.log(err)
+    }
+
+  }
+
+  async findByGenero(req, res) {
+    try {
+      const { genero } = req.params
+      const movies = await Movie.find({ deleted: false})
+        .populate({
+          path: 'generos',
+          match: {genero: genero }
+        })
+        
+        const filtered = movies.filter(item => {
+          return item.generos.length > 0
+        })
+
+        
+      return res.json(filtered);
     }
     catch (err) {
 

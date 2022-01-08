@@ -62,6 +62,24 @@ class GeneroController {
         }
     }
 
+    async findPopulateByGenero(req, res) {
+
+        const { genero } = req.params
+        try {
+
+            const generos = await Genero.find({ genero: genero }).populate({
+                path: 'movies',
+                model: 'Movie'
+            })
+
+            return res.json(generos);
+        }
+
+        catch (err) {
+            console.log(err)
+        }
+    }
+
 }
 
 module.exports = new GeneroController();

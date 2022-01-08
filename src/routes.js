@@ -29,7 +29,7 @@ routes.get("/getall/:text", asyncHandler(MovieController.getAll))
 routes.get("/recente/movie", asyncHandler(MovieController.newsMovie))
 routes.get("/movie/:id", asyncHandler(MovieController.findId))
 //routes.get("/movie/:id", asyncHandler(MovieController.find))
-//routes.get("/generos/movie/:genero", asyncHandler(MovieController.findByGenero))
+routes.get("/genero/movie/:genero", asyncHandler(MovieController.findByGenero))
 
 routes.post("/movie/incluir/", asyncHandler(MovieController.include));
 routes.get("/movies", asyncHandler(MovieController.indexAll))
