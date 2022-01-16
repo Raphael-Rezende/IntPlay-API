@@ -1,6 +1,5 @@
 
 const express = require("express");
-const dotenv = require('dotenv').config()
 
 const db = require("./database/config");
 const mongoose = require("mongoose");
@@ -8,7 +7,11 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 
 const morgan = require("morgan");
-const path = require("path");
+
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
+
+
 
 
 class App {
@@ -24,7 +27,7 @@ class App {
   }
 
   database() {
-    mongoose.connect('mongodb://localhost:27017/web-app', { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect("mongodb://192.168.100.106:27017/web-app", { useNewUrlParser: true, useUnifiedTopology: true });
     const connection = mongoose.connection;
 
     connection.once("open", function () {
