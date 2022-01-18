@@ -70,7 +70,13 @@ class MovieController {
   async getAll(req, res) {
     try {
       const { text } = req.params
-      const movies = await Movie.find({ titulo: { $regex: text, $options: 'i' } })
+      var movies = []
+      if(text == 'xx'){
+        movies = await Movie.find({ deleted: false });
+
+      }else{
+        movies = await Movie.find({deleted: false, titulo: { $regex: text, $options: 'i' } })
+      }
 
       return res.json(movies);
     }
