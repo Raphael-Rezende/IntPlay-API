@@ -32,10 +32,10 @@ const MovieSchema = new mongoose.Schema(
         classificacao: {
             type: String
         },
-        servidor: {
+        servidor: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Servidor'
-        },
+        }],
         generos: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Genero'

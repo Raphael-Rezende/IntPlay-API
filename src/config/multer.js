@@ -1,21 +1,66 @@
 const multer = require("multer");
 const path = require("path");
 const crypto = require("crypto");
+var fs = require("fs")
 
+function checkFileExistsSync(filepath) {
+  let flag = true;
+  try {
+    fs.accessSync(filepath, fs.constants.F_OK);
+  } catch (e) {
+    flag = false;
+  }
+  return flag;
+}
 module.exports = {
   dest: path.resolve(__dirname, "..", "..", "tmp", "uploads"),
   storage: multer.diskStorage({
 
     destination: (req, file, cb) => {
       if (file.fieldname === 'capa') {
-
-        cb(null, path.resolve(__dirname, "..", "..", "tmp", "uploads", "capa"));
+        var capaFile = path.resolve(__dirname, "..", "..", "tmp", "uploads", "capa")
+        if (checkFileExistsSync(capaFile)) {
+          cb(null, capaFile);
+          console.log("Arquivo existe!");
+        } else {
+          
+          fs.mkdir(capaFile, { recursive: true }, (err) => {
+            if (err) {
+              console.log('Erro ao criar Diretório', err)
+            }
+            cb(null, capaFile);
+          });
+        }
 
       } else if (file.fieldname === 'backdrop') {
-        cb(null, path.resolve(__dirname, "..", "..", "tmp", "uploads", "backdrop"));
+        var File = path.resolve(__dirname, "..", "..", "tmp", "uploads", "backdrop")
+        if (checkFileExistsSync(capaFile)) {
+          cb(null, File);
+          console.log("Arquivo existe!");
+        } else {
+          
+          fs.mkdir(File, { recursive: true }, (err) => {
+            if (err) {
+              console.log('Erro ao criar Diretório', err)
+            }
+            cb(null, File);
+          });
+        }
 
       } else if (file.fieldname === 'movie') {
-        cb(null, path.resolve(__dirname, "..", "..", "tmp", "uploads", "movie"));
+        var File =  path.resolve(__dirname, "..", "..", "tmp", "uploads", "movie")
+        if (checkFileExistsSync(capaFile)) {
+          cb(null, File);
+          console.log("Arquivo existe!");
+        } else {
+          
+          fs.mkdir(File, { recursive: true }, (err) => {
+            if (err) {
+              console.log('Erro ao criar Diretório', err)
+            }
+            cb(null, File);
+          });
+        }
       }
     },
     filename: (req, file, cb) => {
